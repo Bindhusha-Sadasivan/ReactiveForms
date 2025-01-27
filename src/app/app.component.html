@@ -10,6 +10,8 @@
               id="username"
               class="form-control"
               formControlName="username">
+              <!-- <span *ngIf="!username?.valid && username?.dirty">Please enter a valid username</span> -->
+              <span *ngIf="!username?.valid && username?.touched">Please enter a valid username</span>
           </div>
           <div class="form-group mt-2">
             <label for="email">email</label>
@@ -18,8 +20,10 @@
               id="email"
               class="form-control mb-2"
               formControlName="email">
+              <!-- <span *ngIf="!email?.valid && email?.dirty">Please enter a valid email address</span> -->
+              <span *ngIf="!email?.valid && email?.touched">Please enter a valid email address</span>
           </div>
-          <div class="radio mt-2" *ngFor="let gender of genders">
+          <div class="radio mt-2 mb-3" *ngFor="let gender of genders">
             <label>
               <input
                 type="radio"
@@ -27,7 +31,9 @@
                 formControlName="gender">{{ gender }}
             </label>
           </div>
-          <button class="btn btn-primary mt-3" type="submit">Submit</button>
+          <!-- <span *ngIf="!signupForm?.valid && signupForm.dirty" class="mt-2">Please enter valid data</span> -->
+          <span *ngIf="!signupForm?.valid && signupForm.touched" class="mt-2">Please enter valid data</span>
+          <div><button class="btn btn-primary mt-3" type="submit">Submit</button></div>
         </form>
       </div>
     </div>

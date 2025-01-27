@@ -26,6 +26,14 @@ export class AppComponent implements OnInit{
     })
   }
 
+  get username(){
+    return this.signupForm.get('username');
+  }
+
+  get email(){
+    return this.signupForm.get('email');
+  }
+
   onSubmit(){
     console.log(this.signupForm)
   }
