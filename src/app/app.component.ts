@@ -20,18 +20,22 @@ export class AppComponent implements OnInit{
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.signupForm = new FormGroup({
-      'username' : new FormControl (null, Validators.required),
-      'email' : new FormControl(null,[Validators.required, Validators.email]),
+      'userData' : new FormGroup({
+          'username' : new FormControl (null, Validators.required),
+          'email' : new FormControl(null,[Validators.required, Validators.email])
+      }),
       'gender': new FormControl(null)
     })
   }
 
   get username(){
-    return this.signupForm.get('username');
+    // return this.signupForm.get('username');
+    return this.signupForm.get('userData.username');
   }
 
   get email(){
-    return this.signupForm.get('email');
+    // return this.signupForm.get('email');
+    return this.signupForm.get('userData.email');
   }
 
   onSubmit(){

@@ -2,6 +2,11 @@ input.ng-invalid.ng-dirty{
 border:1px solid red;
 }
 
-input.ng-touched{
+input.ng-invalid.ng-touched{
   border:1px solid red;
+}
+
+.help-text{
+  color:red;
+  font-style: italic;
 }
