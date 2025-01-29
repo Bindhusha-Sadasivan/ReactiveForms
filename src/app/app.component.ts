@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -24,7 +24,8 @@ export class AppComponent implements OnInit{
           'username' : new FormControl (null, Validators.required),
           'email' : new FormControl(null,[Validators.required, Validators.email])
       }),
-      'gender': new FormControl(null)
+      'gender': new FormControl(null),
+      'hobbies' : new FormArray([]),
     })
   }
 
@@ -38,7 +39,20 @@ export class AppComponent implements OnInit{
     return this.signupForm.get('userData.email');
   }
 
+  get hobbies(){
+    return this.signupForm.get('hobbies');
+  }
+
+  get hobbiesControls(){
+    return (this.signupForm.get('hobbies') as FormArray).controls;
+  }
+
   onSubmit(){
     console.log(this.signupForm)
+  }
+
+  onClickHobbies(){
+    const control = new FormControl('', Validators.required);
+    (<FormArray>this.signupForm.get('hobbies')).push(control)
   }
 }
