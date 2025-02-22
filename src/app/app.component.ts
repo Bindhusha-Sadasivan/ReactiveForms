@@ -41,11 +41,26 @@ export class AppComponent implements OnInit{
     //   }
     // });
 
-       this.signupForm.statusChanges.subscribe({
-      next:(response) => {
-        console.log("response:", response);
+    //    this.signupForm.statusChanges.subscribe({
+    //   next:(response) => {
+    //     console.log("response:", response);
+    //   }
+    // });
+
+    // this.signupForm.setValue({
+    //   'userData':{
+    //     'username':'Mike',
+    //     'email':'mike@test.com'
+    //   },
+    //   'gender':'female',
+    //   'hobbies': []
+    // });
+
+    this.signupForm.patchValue({
+      'userData':{
+        'username':'Mike',
       }
-    })
+    });
   }
 
   get username(){
