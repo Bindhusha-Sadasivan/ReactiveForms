@@ -65,6 +65,8 @@ export class AppComponent implements OnInit{
   //   return null;
   // }
 
+  //This error (nameIsForbidden: true) is added on the individual form controls not on the whole general form control.
+  //In general form control  errors will be displayed as null
   forebiddenNames(forbiddenNames: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       if (forbiddenNames.indexOf(control.value) !== -1) {
