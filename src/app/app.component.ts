@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -14,6 +14,7 @@ export class AppComponent implements OnInit{
   title = 'ReactiveForms';
   genders:any = ['male','female'];
   signupForm!:FormGroup;
+  forbiddenNames:Array<string>=['Anna', 'Chris'];
 
 
   ngOnInit(): void {
@@ -21,7 +22,8 @@ export class AppComponent implements OnInit{
     //Add 'implements OnInit' to the class.
     this.signupForm = new FormGroup({
       'userData' : new FormGroup({
-          'username' : new FormControl (null, Validators.required),
+          // 'username' : new FormControl (null, [Validators.required, this.forebiddenNames.bind(this)]),
+          'username' : new FormControl (null, [Validators.required, this.forebiddenNames(this.forbiddenNames)]),
           'email' : new FormControl(null,[Validators.required, Validators.email])
       }),
       'gender': new FormControl(null),
@@ -54,5 +56,21 @@ export class AppComponent implements OnInit{
   onClickHobbies(){
     const control = new FormControl('', Validators.required);
     (<FormArray>this.signupForm.get('hobbies')).push(control)
+  }
+
+  // forebiddenNames(control:FormControl): any{
+  //   if(this.forbiddenNames.indexOf(control.value) !==1){
+  //     return {'nameIsForbidden':true};
+  //   }
+  //   return null;
+  // }
+
+  forebiddenNames(forbiddenNames: string[]): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (forbiddenNames.indexOf(control.value) !== -1) {
+        return { nameIsForbidden: true };
+      }
+      return null;
+    };
   }
 }

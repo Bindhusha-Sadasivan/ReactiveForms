@@ -44,6 +44,7 @@
 
           <!-- <span *ngIf="!signupForm?.valid && signupForm.dirty" class="help-text mt-2">Please enter valid data</span> -->
           <span class="help-text mt-2" *ngIf="!signupForm?.valid && signupForm.touched">Please enter valid data!</span>
+          <!-- <div><button class="btn btn-primary mt-3" type="submit" [disabled]="!signupForm.valid">Submit</button></div> -->
           <div><button class="btn btn-primary mt-3" type="submit">Submit</button></div>
         </form>
       </div>
