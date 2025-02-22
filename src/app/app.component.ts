@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,11 @@ export class AppComponent implements OnInit{
       'userData' : new FormGroup({
           // 'username' : new FormControl (null, [Validators.required, this.forebiddenNames.bind(this)]),
           'username' : new FormControl (null, [Validators.required, this.forebiddenNames(this.forbiddenNames)]),
-          'email' : new FormControl(null,[Validators.required, Validators.email])
+          'email' : new FormControl (null, {
+            validators: [Validators.required, Validators.email],
+            asyncValidators: [this.forebiddenEmails]
+          }
+          )
       }),
       'gender': new FormControl(null),
       'hobbies' : new FormArray([]),
@@ -75,4 +80,29 @@ export class AppComponent implements OnInit{
       return null;
     };
   }
+
+  // forebiddenEmails(control:FormControl) : Promise<any> | Observable<any>{
+  //   const promise:any = new Promise<any>((resolve, reject) => {
+  //     setTimeout(() => {
+  //       if(control.value === 'test@test.com')
+  //         resolve({'forebiddenEmail':true});
+  //       else
+  //         resolve(null);
+  //     },2000);
+  //   });
+  //   return promise;
+  // }
+
+  forebiddenEmails(control: AbstractControl): Promise<{ [key: string]: any } | null> | Observable<{ [key: string]: any } | null> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (control.value === 'test@test.com') {
+          resolve({ forebiddenEmail: true });
+        } else {
+          resolve(null);
+        }
+      }, 2000);
+    });
+  }
+
 }
