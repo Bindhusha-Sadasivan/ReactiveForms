@@ -82,7 +82,8 @@ export class AppComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log(this.signupForm)
+    console.log(this.signupForm);
+    this.signupForm.reset();
   }
 
   onClickHobbies(){
