@@ -33,6 +33,18 @@ export class AppComponent implements OnInit{
       }),
       'gender': new FormControl(null),
       'hobbies' : new FormArray([]),
+    });
+
+    // this.signupForm.valueChanges.subscribe({
+    //   next:(response) => {
+    //     console.log("response:", response);
+    //   }
+    // });
+
+       this.signupForm.statusChanges.subscribe({
+      next:(response) => {
+        console.log("response:", response);
+      }
     })
   }
 
